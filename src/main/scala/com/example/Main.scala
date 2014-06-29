@@ -1,6 +1,6 @@
 package com.example
 
-import akka.actor.{Props, Actor, ActorLogging, ActorSystem}
+import akka.actor.{Props, Actor, ActorSystem}
 import akka.util.Timeout
 import akka.pattern.ask
 import java.text.SimpleDateFormat
@@ -51,19 +51,19 @@ object Main extends Spark with App {
   }
 
   // we can talk to Actors
-  get("/ping") { (_,_) =>
+  get("/ping") { (request, response) =>
     Await.result(pingActor ? "ping", 1 second).asInstanceOf[String]
   }
 }
 
 object PingActor {
-  val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
-  def props = Props(new PingActor(sdf))
+  def props = Props(new PingActor)
 }
 
-class PingActor(sdf: SimpleDateFormat) extends Actor {
+class PingActor extends Actor {
   override def receive: Receive = {
     case _ =>
+      val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
       sender ! s"pong ${sdf.format(new Date)}"
   }
 }
