@@ -3,11 +3,10 @@ A very basic wrapper class for the great [SparkJava](http://www.sparkjava.com/in
 
 I'm getting used to Scala, the syntax and functional concepts so I've put this together with minimal effort, it shows!
 
-# Starting
-This project uses the Typesafe Activator Launcher, only a Java 6 or higher must be installed on your computer and 
-the activator-laucher will do the rest:
+[![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
-    $ ./activator 'run-main com.example.Main'
+# Running the example
+Type `sbt run` to run the example.
 
 # Example configuration
 The com.example.Main class has the configuration from the Spark website:

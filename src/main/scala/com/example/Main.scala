@@ -1,6 +1,22 @@
+/*
+ * Copyright 2015 Dennis Vriend
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example
 
-import akka.actor.{Props, Actor, ActorSystem}
+import akka.actor.{ Props, Actor, ActorSystem }
 import akka.util.Timeout
 import akka.pattern.ask
 import java.text.SimpleDateFormat
@@ -20,12 +36,12 @@ object Main extends Spark with App {
 
   setServerPort(8080)
 
-  get("/hello"){ (_, _) => "Got a get" }
-  post("/hello") { (_,_) => "Got a post" }
-  put("/hello") { (_,_) => "Got a put" }
-  delete("/hello") { (_,_) => "Got a delete" }
+  get("/hello") { (_, _) ⇒ "Got a get" }
+  post("/hello") { (_, _) ⇒ "Got a post" }
+  put("/hello") { (_, _) ⇒ "Got a put" }
+  delete("/hello") { (_, _) ⇒ "Got a delete" }
 
-  get("/hello/:name") { (request, response) =>
+  get("/hello/:name") { (request, response) ⇒
     s"""Response: Hello: ${request.params(":name")}
        |Body: ${request.body}
        |Cookies: ${request.cookies.asScala}
@@ -51,7 +67,7 @@ object Main extends Spark with App {
   }
 
   // we can talk to Actors
-  get("/ping") { (request, response) =>
+  get("/ping") { (request, response) ⇒
     Await.result(pingActor ? "ping", 1 second).asInstanceOf[String]
   }
 }
@@ -62,9 +78,8 @@ object PingActor {
 
 class PingActor extends Actor {
   override def receive: Receive = {
-    case _ =>
+    case _ ⇒
       val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
       sender ! s"pong ${sdf.format(new Date)}"
   }
 }
-
