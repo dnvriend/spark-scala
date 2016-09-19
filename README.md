@@ -15,7 +15,8 @@ The com.example.Main class has the configuration from the Spark website:
     post("/hello") { (_,_) => "Got a post" }
     put("/hello") { (_,_) => "Got a put" }
     delete("/hello") { (_,_) => "Got a delete" }
-    get("/hello/:name") { (_,_) => "shows debug stuff" }
+    get("/hello/:name") { (_,_) => "Hello $name" }
+    get("/debug") { (_,_) => "shows debug stuff" }
     get("/ping") { (_,_) => pingactor ? "ping" }
     
 # Actors

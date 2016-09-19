@@ -42,16 +42,20 @@ object Main extends Spark with App {
   delete("/hello") { (_, _) ⇒ "Got a delete" }
 
   get("/hello/:name") { (request, response) ⇒
-    s"""Response: Hello: ${request.params(":name")}
-       |Body: ${request.body}
+    "Hello " + request.params(":name")
+  }
+
+  get("/debug") { (request, response) ⇒
+    s"""Response: Body: ${request.body}
        |Cookies: ${request.cookies.asScala}
        |Length: ${request.contentLength}
        |ContentType: ${request.contentType}
        |HeaderList ${request.headers.asScala}
        |AttributeList: ${request.attributes.asScala}
        |Host: ${request.host}
-       |Ip: ${request.ip}
        |Port: ${request.port}
+       |Ip: ${request.ip}
+       |ClientPort: ${request.raw.getRemotePort}
        |PathInfo: ${request.pathInfo}
        |Parameters: ${request.params.asScala}
        |QueryMap: ${request.queryMap.toMap.asScala}
